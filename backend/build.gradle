@@ -6,7 +6,6 @@ plugins {
 
 group = 'com.example'
 version = '0.0.1'
-sourceCompatibility = '17'
 
 repositories {
     mavenCentral()
@@ -46,9 +45,13 @@ tasks.register('npmRunBuild', Exec) {
     commandLine = ["npm", "run", "build"]
 }
 
+tasks.register('cleanFrontend', Delete) {
+    delete "${projectDir}/src/main/resources/static"
+}
 // Copy React build to Spring Boot static folder
 tasks.register('copyFrontend', Copy) {
     dependsOn npmRunBuild
+    dependsOn cleanFrontend
     from "${frontendDir}/dist"
     into "${projectDir}/src/main/resources/static"
 }

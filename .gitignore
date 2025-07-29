@@ -35,6 +35,7 @@ bin/
 /nbdist/
 /.nb-gradle/
 **/node_modules/**
+frontent/dist/**
 
 ### VS Code ###
 .vscode/

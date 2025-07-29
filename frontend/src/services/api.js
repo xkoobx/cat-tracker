@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = '/api/cats';
+const BASE_URL = 'http://localhost:8080/api/cats';
 
 export const getCats = (date, feedingTime) => axios.get(`${BASE_URL}/${date}/${feedingTime}`).then(res => res.data);
 export const createCat = cat => axios.post(BASE_URL, cat).then(res => res.data);

@@ -55,24 +55,7 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
 
   return (
     <div className="p-4">
-      <NavigationBar date={date} timeOfDay={timeOfDay} navigate={navigate} />
-      <div class="grid-cols-2 grid gap-4">
-        <div className="flex justify-start mt-4">
-          <img
-            src={ reset }
-            className="w-12 h-12 flex items-center justify-center"
-            onClick={() => handleReset()}
-          />
-        </div>
-        <div className="flex justify-end mt-4">
-          <img
-            className="w-12 h-12 flex items-center justify-center"
-            onClick={() => setShowAddModal(true)}
-            src={ plus}
-          />
-        </div>
-      </div>
-
+      <NavigationBar date={date} timeOfDay={timeOfDay} navigate={navigate}/>
       <div className="grid gap-4 mt-4">
         {cats.map(cat => (
           <CatCard
@@ -84,6 +67,23 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
           />
         ))}
       </div>
+      <div class="grid-cols-2 grid gap-4">
+        <div className="flex justify-start mt-4">
+          <img
+            src={reset}
+            className="h-1/3 flex items-center justify-center"
+            onClick={() => handleReset()}
+          />
+        </div>
+        <div className="flex justify-end mt-4">
+          <img
+            className="h-1/3 flex items-center justify-center"
+            onClick={() => setShowAddModal(true)}
+            src={plus}
+          />
+        </div>
+      </div>
+
 
       <AddCatModal
         isOpen={showAddModal}
@@ -95,7 +95,7 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
         isOpen={confirmState.open}
         message={`Katze "${confirmState.cat?.name}" wirklich löschen?`}
         onConfirm={handleDelete}
-        onCancel={() => setConfirmState({ open: false, cat: null })}
+        onCancel={() => setConfirmState({open: false, cat: null})}
       />
     </div>
   );

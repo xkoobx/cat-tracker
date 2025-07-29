@@ -12,16 +12,16 @@ export default function CatCard({ cat, fed, onToggle, onDelete }) {
       <img
         src={fed ? catHappy : catHungry}
         alt={cat.name}
-        className="w-17 h-16"
+        className="h-40"
       />
-      <span className="text-lg font-medium flex-1">{cat.name}</span>
+      <span className="text-6xl font-medium flex-1">{cat.name}</span>
       <img
         src={fed ? on : off}
-        className="w-20 h-13 object-cover"
+        className="h-20 object-cover"
       />
       <button
         onClick={() => onDelete(cat)}
-        className="ml-3 text-red-500 text-xl"
+        className="ml-3 text-red-500 text-6xl font-bold"
         title="Löschen"
       >
         &minus;

@@ -1,0 +1,2 @@
+./gradlew copyFrontend
+./gradlew target

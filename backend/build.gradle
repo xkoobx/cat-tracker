@@ -35,20 +35,26 @@ test {
 def frontendDir = file("${projectDir}/../frontend")
 
 // Add a task to build the React app
-task npmBuild(type: Exec) {
+tasks.register('npmBuild', Exec) {
     workingDir = frontendDir
     commandLine = ["npm", "install"]
 }
 
-task npmRunBuild(type: Exec) {
+tasks.register('npmRunBuild', Exec) {
     dependsOn npmBuild
     workingDir = frontendDir
     commandLine = ["npm", "run", "build"]
 }
 
 // Copy React build to Spring Boot static folder
-task copyFrontend(type: Copy) {
+tasks.register('copyFrontend', Copy) {
     dependsOn npmRunBuild
     from "${frontendDir}/dist"
     into "${projectDir}/src/main/resources/static"
+}
+
+tasks.register('target', Copy) {
+    dependsOn bootJar
+    from "${projectDir}/build/libs"
+    into "${projectDir}/target/"
 }

@@ -67,17 +67,17 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
           />
         ))}
       </div>
-      <div class="grid-cols-2 grid gap-4">
-        <div className="flex justify-start mt-4">
+      <div className="grid-cols-2 grid gap-4">
+        <div className="flex justify-center mt-10">
           <img
             src={reset}
-            className="h-1/3 flex items-center justify-center"
+            className="h-1/5 flex items-center justify-center"
             onClick={() => handleReset()}
           />
         </div>
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-center mt-10">
           <img
-            className="h-1/3 flex items-center justify-center"
+            className="h-1/5 flex items-center justify-center"
             onClick={() => setShowAddModal(true)}
             src={plus}
           />

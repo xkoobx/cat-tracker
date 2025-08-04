@@ -3,12 +3,14 @@ import { useState } from 'react';
 export default function AddCatModal({ isOpen, onClose, onSave }) {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
+  const [isDog, setIsDog] = useState(false);
 
   const handleSave = () => {
     if (!name.trim()) return;
-    onSave({ name, description });
+    onSave({ name, description, isDog });
     setName('');
     setDescription('');
+    setIsDog(true)
   };
 
   if (!isOpen) return null;
@@ -31,6 +33,15 @@ export default function AddCatModal({ isOpen, onClose, onSave }) {
             className="border p-2 rounded"
             value={description}
             onChange={e => setDescription(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder={isDog ? 'Hund' : 'Katze'}
+            readOnly
+            className="border p-2 rounded"
+            value={isDog ? 'Hund' : 'Katze'}
+            onClick={() => setIsDog(!isDog)}
+            onChange={e => setIsDog(e.target.value === 'Katze')}
           />
         </div>
         <div className="flex justify-end gap-2 mt-6">

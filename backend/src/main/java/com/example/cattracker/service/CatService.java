@@ -45,6 +45,7 @@ public class CatService {
                     .name(feedingStatus.getCat().getName())
                     .description(feedingStatus.getCat().getDescription())
                     .fed(feedingStatus.isFed())
+                    .isDog(feedingStatus.getCat().getIsDog() != null && feedingStatus.getCat().getIsDog())
                 .build()).toList();
     }
 

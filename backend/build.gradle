@@ -53,6 +53,7 @@ tasks.register('cleanFrontend', Delete) {
 tasks.register('copyFrontend', Copy) {
     dependsOn npmRunBuild
     dependsOn cleanFrontend
+
     from "${frontendDir}/dist"
     into "${projectDir}/src/main/resources/static"
 }

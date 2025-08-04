@@ -15,4 +15,5 @@ public class CatModel {
     private String name;
     private String description;
     private boolean fed;
+    private boolean isDog;
 }

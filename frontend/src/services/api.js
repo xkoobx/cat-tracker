@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = '/api/cats';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const getCats = (date, feedingTime) => axios.get(`${BASE_URL}/${date}/${feedingTime}`).then(res => res.data);
 export const createCat = cat => axios.post(BASE_URL, cat).then(res => res.data);

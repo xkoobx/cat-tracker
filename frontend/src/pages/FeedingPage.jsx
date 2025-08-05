@@ -1,5 +1,6 @@
 
 import { useSwipeable } from 'react-swipeable';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import {getNextFeeding, getPrevFeeding } from '../utils/date.js';
 import NavigationBar from '../components/NavigationBar.jsx';
@@ -21,6 +22,7 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
   const [cats, setCats] = useState([]);
   const [showAddModal, setShowAddModal] = useState(false);
   const [confirmState, setConfirmState] = useState({ open: false, cat: null });
+  const [direction, setDirection] = useState(0);
 
   // fetch cats on mount
   useEffect(() => {
@@ -59,19 +61,45 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
   // 🧠 Swipe logic: navigate to previous or next day
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
+      setDirection(1);
       const [nextDate, nextTime] = getNextFeeding(date, timeOfDay);
       navigate(`/${nextDate}/${nextTime}`);
     },
     onSwipedRight: () => {
-      const [nextDate, nextTime] = getPrevFeeding(date, timeOfDay);
+      setDirection(-1);
+      const [nextDate, nextTime] = getNextFeeding(date, timeOfDay);
       navigate(`/${nextDate}/${nextTime}`);
     },
     trackTouch: true,
-    trackMouse: true,
+    trackMouse: true
   });
 
+  const variants = {
+    initial: (dir) => ({
+      x: dir > 0 ? 300 : -300,
+      opacity: 0,
+    }),
+    animate: { x: 0, opacity: 1 },
+    exit: (dir) => ({
+      x: dir > 0 ? -300 : 300,
+      opacity: 0,
+    }),
+  };
+
   return (
-    <div {...swipeHandlers} className="p-4">
+    <AnimatePresence mode="wait" custom={direction}>
+      <motion.div
+        key={`${date}-${timeOfDay}`}
+        custom={direction}
+        variants={variants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={{ duration: 0.1 }}
+        {...swipeHandlers}
+        className="p-4"
+      >
+        <div {...swipeHandlers} className="p-4">
       <NavigationBar date={date} timeOfDay={timeOfDay} navigate={navigate}/>
       <div className="grid gap-4 mt-4">
         {cats.map(cat => (
@@ -115,5 +143,7 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
         onCancel={() => setConfirmState({open: false, cat: null})}
       />
     </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

@@ -1,4 +1,7 @@
+
+import { useSwipeable } from 'react-swipeable';
 import { useState, useEffect } from 'react';
+import {getNextFeeding, getPrevFeeding } from '../utils/date.js';
 import NavigationBar from '../components/NavigationBar.jsx';
 import CatCard from '../components/CatCard.jsx';
 import AddCatModal from '../components/AddCatModal.jsx';
@@ -53,8 +56,22 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
     });
   };
 
+  // 🧠 Swipe logic: navigate to previous or next day
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      const [nextDate, nextTime] = getNextFeeding(date, timeOfDay);
+      navigate(`/${nextDate}/${nextTime}`);
+    },
+    onSwipedRight: () => {
+      const [nextDate, nextTime] = getPrevFeeding(date, timeOfDay);
+      navigate(`/${nextDate}/${nextTime}`);
+    },
+    trackTouch: true,
+    trackMouse: true,
+  });
+
   return (
-    <div className="p-4">
+    <div {...swipeHandlers} className="p-4">
       <NavigationBar date={date} timeOfDay={timeOfDay} navigate={navigate}/>
       <div className="grid gap-4 mt-4">
         {cats.map(cat => (

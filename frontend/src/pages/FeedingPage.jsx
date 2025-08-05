@@ -67,7 +67,7 @@ export default function FeedingPage({ date, timeOfDay, navigate }) {
     },
     onSwipedRight: () => {
       setDirection(-1);
-      const [nextDate, nextTime] = getNextFeeding(date, timeOfDay);
+      const [nextDate, nextTime] = getPrevFeeding(date, timeOfDay);
       navigate(`/${nextDate}/${nextTime}`);
     },
     trackTouch: true,

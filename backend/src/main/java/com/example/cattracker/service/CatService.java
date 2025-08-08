@@ -6,6 +6,7 @@ import com.example.cattracker.model.CatModel;
 import com.example.cattracker.repository.CatRepository;
 import com.example.cattracker.repository.FeedingStatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,13 +34,14 @@ public class CatService {
     }
 
     public List<CatModel> getAllCats(LocalDate date, FeedingStatus.FeedingTime feedingTime) {
-        return catRepo.findAll().stream().map(cat -> feedingStatusRepo.findByCatAndDateAndFeedingTime(cat, date, feedingTime)
-                                                                  .orElse(FeedingStatus.builder()
-                                                                                        .cat(cat)
-                                                                                        .date(date)
-                                                                                        .feedingTime(feedingTime)
-                                                                                        .fed(false) // Default to not fed
-                                                                                        .build())
+        return catRepo.findAll(Sort.by(Sort.Direction.ASC, "id"))
+                      .stream().map(cat -> feedingStatusRepo.findByCatAndDateAndFeedingTime(cat, date, feedingTime)
+                                                            .orElse(FeedingStatus.builder()
+                                                                                .cat(cat)
+                                                                                .date(date)
+                                                                                .feedingTime(feedingTime)
+                                                                                .fed(false) // Default to not fed
+                                                                            .build())
         ).map(feedingStatus -> CatModel.builder()
                     .id(feedingStatus.getCat().getId())
                     .name(feedingStatus.getCat().getName())

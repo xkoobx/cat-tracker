@@ -16,8 +16,6 @@ export default function NavigationBar({ date, timeOfDay, navigate }) {
 
   return (
     <div className="relative p-4 flex justify-between items-center">
-
-
       <div className="absolute inset-0 bg-center bg-cover" style={{
         backgroundImage: `url(${ isMorning ? morningImage : eveningImage})`,
         backgroundPosition: 'center',

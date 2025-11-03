@@ -2,13 +2,14 @@ import catHappy from '../assets/cat-happy.jpg';
 import dogHappy from '../assets/dog-happy.jpg';
 import catHungry from '../assets/cat-hungry.jpg';
 import dogHungry from '../assets/dog-hungry.png';
+import lindaShrine from '../assets/linda-shrine.jpeg';
 import on from '../assets/on.png';
 import off from '../assets/off.png';
 
 
 export default function CatCard({ cat, fed, onToggle, onDelete }) {
   return (
-    <div className={`flex items-center gap-4 p-4 border rounded-lg shadow-md `}
+    <div className={cat.name === 'Linda' ? `flex items-center gap-5 p-5 border rounded-lg shadow-md pointer-events-none opacity-50 ` : `flex items-center gap-4 p-4 border rounded-lg shadow-md`}
          onClick={() => onToggle(cat.id, !fed)}>
       <img
         src={fed ? cat.dog ? dogHappy : catHappy : cat.dog ? dogHungry : catHungry}
@@ -16,6 +17,9 @@ export default function CatCard({ cat, fed, onToggle, onDelete }) {
         className="h-40"
       />
       <span className="text-6xl font-medium flex-1">{cat.name} {cat.dog}</span>
+      <img src={cat.name === 'Linda' ? lindaShrine : ''}
+           className="h-28"
+      />
       <img
         src={fed ? on : off}
         className="h-20 object-cover"
